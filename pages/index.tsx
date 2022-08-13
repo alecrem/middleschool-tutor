@@ -10,9 +10,14 @@ import {
   InputRightElement,
   Text,
   List,
-  ListItem
+  ListItem,
+  Link
 } from '@chakra-ui/react'
-import { CheckCircleIcon, NotAllowedIcon } from '@chakra-ui/icons'
+import {
+  CheckCircleIcon,
+  NotAllowedIcon,
+  ExternalLinkIcon
+} from '@chakra-ui/icons'
 
 const Home: NextPage = (props) => {
   const [searchBox, setSearchBox] = useState('')
@@ -106,7 +111,15 @@ const Home: NextPage = (props) => {
             return (
               <ListItem key={e}>
                 <CheckCircleIcon color="green.500" /> &nbsp;
-                {e}
+                <Link
+                  href={
+                    'https://scryfall.com/search?q=' +
+                    encodeURIComponent('prefer:oldest !"' + e + '"')
+                  }
+                  isExternal
+                >
+                  {e} <ExternalLinkIcon mx="2px" />
+                </Link>
               </ListItem>
             )
           })}
