@@ -11,13 +11,17 @@ import {
   Text,
   List,
   ListItem,
-  Link
+  Link,
+  Flex,
+  Spacer,
+  Icon
 } from '@chakra-ui/react'
 import {
   CheckCircleIcon,
   NotAllowedIcon,
   ExternalLinkIcon
 } from '@chakra-ui/icons'
+import { AiFillTwitterCircle, AiFillGithub } from 'react-icons/ai'
 
 const Home: NextPage = (props) => {
   const [searchBox, setSearchBox] = useState('')
@@ -97,10 +101,34 @@ const Home: NextPage = (props) => {
   const placeholder = legalCards.name[placeholderIndex]
 
   return (
-    <Box>
-      <Container maxW="container.sm" mt="4em">
-        <Heading as="h1" size="4xl">
+    <>
+      <Box p="4">
+        <Heading size="lg" color="orange.500">
           Middle School Deck Check
+        </Heading>
+        <Flex>
+          <Box p={2}>
+            <Link href="/">
+              <Heading size="md">Card Search</Heading>
+            </Link>
+          </Box>
+          <Spacer />
+          <Box p={2}>
+            <Link
+              href="https://github.com/alecrem/middleschool-deckcheck/"
+              p={4}
+            >
+              <Icon as={AiFillGithub} w={8} h={8} />
+            </Link>
+            <Link href="https://twitter.com/KarawapoM" p={4}>
+              <Icon as={AiFillTwitterCircle} w={8} h={8} />
+            </Link>
+          </Box>
+        </Flex>
+      </Box>
+      <Container maxW="container.sm" mt="2em">
+        <Heading as="h1" size="2xl">
+          Card Search
         </Heading>
         <Text mt="1em">Enter a card name in English or Japanese</Text>
         <InputGroup mt="2em">
@@ -147,7 +175,7 @@ const Home: NextPage = (props) => {
           })}
         </List>
       </Container>
-    </Box>
+    </>
   )
 }
 
