@@ -24,9 +24,8 @@ const Home: NextPage = (props) => {
   }
 
   const isLegal = (newSearchBox: string) => {
-    let legal = inObject(newSearchBox, legalCards.name)
-    if (legal) return true
-    return inObject(newSearchBox, legalCards.name)
+    if (inObject(newSearchBox, legalCards.name)) return true
+    return inObject(newSearchBox, legalCards.name_ja)
   }
 
   const inObject = (needleTerm: string, hayObject: any) => {
@@ -34,7 +33,10 @@ const Home: NextPage = (props) => {
     for (let i = 0; i < keys.length; i++) {
       const key: any = keys[i]
       let cardWeAreChecking = hayObject[key]
-      if (needleTerm == cardWeAreChecking) {
+      if (cardWeAreChecking === null) {
+        continue
+      }
+      if (needleTerm == cardWeAreChecking.toLowerCase()) {
         return true
       }
     }
