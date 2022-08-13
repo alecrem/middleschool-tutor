@@ -18,35 +18,27 @@ const Home: NextPage = (props) => {
 
   const handleChange = (event: any) => {
     const { value } = event.target
-    const newsearchBox = value.trim().toLowerCase()
-    setSearchBox(newsearchBox)
-    if (typeof newsearchBox == 'string') setCardIsLegal(isLegal(newsearchBox))
+    const newSearchBox = value.trim().toLowerCase()
+    setSearchBox(newSearchBox)
+    if (typeof newSearchBox == 'string') setCardIsLegal(isLegal(newSearchBox))
   }
 
-  const isLegal = (newsearchBox: string) => {
-    let keys = Object.keys(legalCards.name)
-    let legal = false
+  const isLegal = (newSearchBox: string) => {
+    let legal = inObject(newSearchBox, legalCards.name)
+    if (legal) return true
+    return inObject(newSearchBox, legalCards.name)
+  }
+
+  const inObject = (needleTerm: string, hayObject: any) => {
+    const keys = Object.keys(hayObject)
     for (let i = 0; i < keys.length; i++) {
       const key: any = keys[i]
-      let cardWeAreChecking = legalCards.name[key].toLowerCase()
-      if (newsearchBox == cardWeAreChecking) {
-        legal = true
-        break
+      let cardWeAreChecking = hayObject[key]
+      if (needleTerm == cardWeAreChecking) {
+        return true
       }
     }
-    if (legal) {
-      return true
-    }
-    keys = Object.keys(legalCards.name_ja)
-    for (let i = 0; i < keys.length; i++) {
-      const key: any = keys[i]
-      let cardWeAreChecking = legalCards.name_ja[key]
-      if (newsearchBox == cardWeAreChecking) {
-        legal = true
-        break
-      }
-    }
-    return legal
+    return false
   }
 
   const legalCards = (props as cardsProps).legalCards
