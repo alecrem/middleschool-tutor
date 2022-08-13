@@ -13,23 +13,23 @@ import {
 import { CheckCircleIcon, NotAllowedIcon } from '@chakra-ui/icons'
 
 const Home: NextPage = (props) => {
-  const [cardName, setCardName] = useState('')
+  const [searchBox, setSearchBox] = useState('')
   const [cardIsLegal, setCardIsLegal] = useState(false)
 
   const handleChange = (event: any) => {
     const { value } = event.target
-    const newCardName = value.trim().toLowerCase()
-    setCardName(newCardName)
-    if (typeof newCardName == 'string') setCardIsLegal(isLegal(newCardName))
+    const newsearchBox = value.trim().toLowerCase()
+    setSearchBox(newsearchBox)
+    if (typeof newsearchBox == 'string') setCardIsLegal(isLegal(newsearchBox))
   }
 
-  const isLegal = (newCardName: string) => {
+  const isLegal = (newsearchBox: string) => {
     let keys = Object.keys(legalCards.name)
     let legal = false
     for (let i = 0; i < keys.length; i++) {
       const key: any = keys[i]
       let cardWeAreChecking = legalCards.name[key].toLowerCase()
-      if (newCardName == cardWeAreChecking) {
+      if (newsearchBox == cardWeAreChecking) {
         legal = true
         break
       }
@@ -41,7 +41,7 @@ const Home: NextPage = (props) => {
     for (let i = 0; i < keys.length; i++) {
       const key: any = keys[i]
       let cardWeAreChecking = legalCards.name_ja[key]
-      if (newCardName == cardWeAreChecking) {
+      if (newsearchBox == cardWeAreChecking) {
         legal = true
         break
       }
@@ -64,7 +64,7 @@ const Home: NextPage = (props) => {
         <Text>Enter card name in English or Japanese</Text>
         <InputGroup mt="2em">
           <Input
-            name="cardName"
+            name="searchBox"
             placeholder={placeholder}
             onChange={handleChange}
           />
