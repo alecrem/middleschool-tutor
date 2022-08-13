@@ -34,6 +34,10 @@ const Home: NextPage = (props) => {
     const { value } = event.target
     const newSearchBox = value.trim().toLowerCase()
     setSearchBox(newSearchBox)
+    if (newSearchBox.length < 1) {
+      setSuggestions([])
+      return
+    }
     if (typeof newSearchBox == 'string') setCardIsLegal(isLegal(newSearchBox))
     setSuggestions(suggestCards(newSearchBox))
   }
