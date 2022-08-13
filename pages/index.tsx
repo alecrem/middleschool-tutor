@@ -18,7 +18,7 @@ const Home: NextPage = (props) => {
 
   const handleChange = (event: any) => {
     const { value } = event.target
-    const newCardName = value.trim()
+    const newCardName = value.trim().toLowerCase()
     setCardName(newCardName)
     if (typeof newCardName == 'string') setCardIsLegal(isLegal(newCardName))
   }
@@ -28,10 +28,9 @@ const Home: NextPage = (props) => {
     let legal = false
     for (let i = 0; i < keys.length; i++) {
       const key: any = keys[i]
-      let cardWeAreChecking = legalCards.name[key]
+      let cardWeAreChecking = legalCards.name[key].toLowerCase()
       if (newCardName == cardWeAreChecking) {
         legal = true
-        console.log('Found', i, newCardName)
         break
       }
     }
@@ -44,7 +43,6 @@ const Home: NextPage = (props) => {
       let cardWeAreChecking = legalCards.name_ja[key]
       if (newCardName == cardWeAreChecking) {
         legal = true
-        console.log('Found', i, newCardName)
         break
       }
     }
