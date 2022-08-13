@@ -21,10 +21,12 @@ import {
 
 const Home: NextPage = (props) => {
   const [searchBox, setSearchBox] = useState('')
+  const [exactMatch, setExactMatch] = useState('')
   const [cardIsLegal, setCardIsLegal] = useState(false)
   const [suggestions, setSuggestions] = useState<string[]>([])
 
   const handleChange = (event: any) => {
+    setExactMatch('')
     const { value } = event.target
     const newSearchBox = value.trim().toLowerCase()
     setSearchBox(newSearchBox)
@@ -33,8 +35,17 @@ const Home: NextPage = (props) => {
   }
 
   const isLegal = (newSearchBox: string) => {
-    if (inObject(newSearchBox, legalCards.name)) return true
-    return inObject(newSearchBox, legalCards.name_ja)
+    const englishMatch = inObject(newSearchBox, legalCards.name)
+    if (englishMatch.length > 0) {
+      setExactMatch(englishMatch)
+      return true
+    }
+    const japaneseMatch = inObject(newSearchBox, legalCards.name_ja)
+    if (japaneseMatch.length > 0) {
+      setExactMatch(japaneseMatch)
+      return true
+    }
+    return false
   }
 
   const inObject = (needleTerm: string, hayObject: any) => {
@@ -46,16 +57,16 @@ const Home: NextPage = (props) => {
         continue
       }
       if (needleTerm == cardWeAreChecking.toLowerCase()) {
-        return true
+        return cardWeAreChecking
       }
     }
-    return false
+    return ''
   }
 
   const findOccurrences = (
     needleTerm: string,
     hayObject: any,
-    limit: number = 20
+    limit: number = 40
   ) => {
     let occurrences: string[] = []
     const keys = Object.keys(hayObject)
@@ -73,7 +84,7 @@ const Home: NextPage = (props) => {
     return occurrences
   }
 
-  const suggestCards = (searchTerm: string, limit: number = 20) => {
+  const suggestCards = (searchTerm: string, limit: number = 40) => {
     let occurences = findOccurrences(searchTerm, legalCards.name, limit)
     if (occurences.length > 0) return occurences
     return findOccurrences(searchTerm, legalCards.name_ja, limit)
@@ -100,7 +111,18 @@ const Home: NextPage = (props) => {
           />
           <InputRightElement>
             {cardIsLegal ? (
-              <CheckCircleIcon color="green.500" />
+              <>
+                <Link
+                  href={
+                    'https://scryfall.com/search?q=' +
+                    encodeURIComponent('prefer:oldest !"' + exactMatch + '"')
+                  }
+                  isExternal
+                >
+                  <CheckCircleIcon color="green.500" />
+                  <ExternalLinkIcon mx="2px" />
+                </Link>
+              </>
             ) : (
               <NotAllowedIcon color="red.500" />
             )}
