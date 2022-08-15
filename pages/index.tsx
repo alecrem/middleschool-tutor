@@ -14,7 +14,8 @@ import {
   Link,
   Flex,
   Spacer,
-  Icon
+  Icon,
+  Image
 } from '@chakra-ui/react'
 import {
   CheckCircleIcon,
@@ -29,7 +30,7 @@ const Home: NextPage = (props) => {
   const [cardIsLegal, setCardIsLegal] = useState(false)
   const [suggestions, setSuggestions] = useState<string[]>([])
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setExactMatch('')
     const { value } = event.target
     const newSearchBox = value.trim().toLowerCase()
@@ -56,10 +57,10 @@ const Home: NextPage = (props) => {
     return false
   }
 
-  const inObject = (needleTerm: string, hayObject: any) => {
+  const inObject = (needleTerm: string, hayObject: listAsProps) => {
     const keys = Object.keys(hayObject)
     for (let i = 0; i < keys.length; i++) {
-      const key: any = keys[i]
+      const key: string = keys[i]
       let cardWeAreChecking = hayObject[key]
       if (cardWeAreChecking === null) {
         continue
@@ -73,13 +74,13 @@ const Home: NextPage = (props) => {
 
   const findOccurrences = (
     needleTerm: string,
-    hayObject: any,
+    hayObject: listAsProps,
     limit: number = 40
   ) => {
     let occurrences: string[] = []
     const keys = Object.keys(hayObject)
     for (let i = 0; i < keys.length; i++) {
-      const key: any = keys[i]
+      const key: string = keys[i]
       let cardWeAreChecking = hayObject[key]
       if (cardWeAreChecking === null) {
         continue
@@ -106,30 +107,40 @@ const Home: NextPage = (props) => {
 
   return (
     <>
-      <Box p="4">
-        <Heading size="lg" color="orange.500">
-          Middle School Deck Check
-        </Heading>
-        <Flex>
-          <Box p={2}>
-            <Link href="/">
-              <Heading size="md">Card Search</Heading>
-            </Link>
-          </Box>
-          <Spacer />
-          <Box p={2}>
-            <Link
-              href="https://github.com/alecrem/middleschool-deckcheck/"
-              p={4}
-            >
-              <Icon as={AiFillGithub} w={8} h={8} />
-            </Link>
-            <Link href="https://twitter.com/KarawapoM" p={4}>
-              <Icon as={AiFillTwitterCircle} w={8} h={8} />
-            </Link>
-          </Box>
-        </Flex>
-      </Box>
+      <Container maxW="container.lg" mt="2em">
+        <Box mb={4}>
+          <Flex>
+            <Box mr="1em">
+              <Image
+                src="favicon.ico"
+                alt="Middle School Tutor logo"
+                width="3em"
+              />
+            </Box>
+            <Box>
+              <Heading size="xl" color="blue.500">
+                Middle School Tutor
+              </Heading>
+            </Box>
+            <Spacer />
+            <Box p={2}>
+              <Link href="https://github.com/alecrem/middleschool-tutor/" p={4}>
+                <Icon as={AiFillGithub} w={8} h={8} />
+              </Link>
+              <Link href="https://twitter.com/KarawapoM" p={4}>
+                <Icon as={AiFillTwitterCircle} w={8} h={8} />
+              </Link>
+            </Box>
+          </Flex>
+          <Flex>
+            <Box p={2}>
+              <Link href="/">
+                {/* <Heading size="md">Card Search</Heading> */}
+              </Link>
+            </Box>
+          </Flex>
+        </Box>
+      </Container>
       <Container maxW="container.sm" mt="2em">
         <Heading as="h1" size="2xl">
           Card Search
@@ -183,13 +194,16 @@ const Home: NextPage = (props) => {
   )
 }
 
-type cardsProps = {
+interface cardsProps {
   legalCards: LegalCards
 }
-type LegalCards = {
-  oracle_id: any[]
-  name: any[]
-  name_ja: any[]
+interface LegalCards {
+  oracle_id: listAsProps
+  name: listAsProps
+  name_ja: listAsProps
+}
+interface listAsProps {
+  [x: string]: string
 }
 
 export const getStaticProps: GetStaticProps = async () => {

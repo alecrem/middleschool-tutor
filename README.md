@@ -1,4 +1,4 @@
-# Middle School Deck Check
+# Middle School Tutor
 
 A website to check the legality of Magic cards and deck lists in the Middle School format. 
 
