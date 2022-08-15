@@ -30,7 +30,7 @@ const Home: NextPage = (props) => {
   const [cardIsLegal, setCardIsLegal] = useState(false)
   const [suggestions, setSuggestions] = useState<string[]>([])
 
-  const handleChange = (event: any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setExactMatch('')
     const { value } = event.target
     const newSearchBox = value.trim().toLowerCase()
@@ -57,10 +57,10 @@ const Home: NextPage = (props) => {
     return false
   }
 
-  const inObject = (needleTerm: string, hayObject: any) => {
+  const inObject = (needleTerm: string, hayObject: listAsProps) => {
     const keys = Object.keys(hayObject)
     for (let i = 0; i < keys.length; i++) {
-      const key: any = keys[i]
+      const key: string = keys[i]
       let cardWeAreChecking = hayObject[key]
       if (cardWeAreChecking === null) {
         continue
@@ -74,13 +74,13 @@ const Home: NextPage = (props) => {
 
   const findOccurrences = (
     needleTerm: string,
-    hayObject: any,
+    hayObject: listAsProps,
     limit: number = 40
   ) => {
     let occurrences: string[] = []
     const keys = Object.keys(hayObject)
     for (let i = 0; i < keys.length; i++) {
-      const key: any = keys[i]
+      const key: string = keys[i]
       let cardWeAreChecking = hayObject[key]
       if (cardWeAreChecking === null) {
         continue
@@ -194,13 +194,16 @@ const Home: NextPage = (props) => {
   )
 }
 
-type cardsProps = {
+interface cardsProps {
   legalCards: LegalCards
 }
-type LegalCards = {
-  oracle_id: any[]
-  name: any[]
-  name_ja: any[]
+interface LegalCards {
+  oracle_id: listAsProps
+  name: listAsProps
+  name_ja: listAsProps
+}
+interface listAsProps {
+  [x: string]: string
 }
 
 export const getStaticProps: GetStaticProps = async () => {
