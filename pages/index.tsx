@@ -124,10 +124,7 @@ const Home: NextPage = (props) => {
             </Box>
             <Spacer />
             <Box p={2}>
-              <Link
-                href="https://github.com/alecrem/middleschool-deckcheck/"
-                p={4}
-              >
+              <Link href="https://github.com/alecrem/middleschool-tutor/" p={4}>
                 <Icon as={AiFillGithub} w={8} h={8} />
               </Link>
               <Link href="https://twitter.com/KarawapoM" p={4}>
