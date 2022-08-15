@@ -108,7 +108,7 @@ const Home: NextPage = (props) => {
   return (
     <>
       <Container maxW="container.lg" mt="2em">
-        <Box pd="4">
+        <Box mb={4}>
           <Flex>
             <Box mr="1em">
               <Image
