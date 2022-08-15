@@ -14,7 +14,8 @@ import {
   Link,
   Flex,
   Spacer,
-  Icon
+  Icon,
+  Image
 } from '@chakra-ui/react'
 import {
   CheckCircleIcon,
@@ -106,30 +107,43 @@ const Home: NextPage = (props) => {
 
   return (
     <>
-      <Box p="4">
-        <Heading size="lg" color="orange.500">
-          Middle School Deck Check
-        </Heading>
-        <Flex>
-          <Box p={2}>
-            <Link href="/">
-              <Heading size="md">Card Search</Heading>
-            </Link>
-          </Box>
-          <Spacer />
-          <Box p={2}>
-            <Link
-              href="https://github.com/alecrem/middleschool-deckcheck/"
-              p={4}
-            >
-              <Icon as={AiFillGithub} w={8} h={8} />
-            </Link>
-            <Link href="https://twitter.com/KarawapoM" p={4}>
-              <Icon as={AiFillTwitterCircle} w={8} h={8} />
-            </Link>
-          </Box>
-        </Flex>
-      </Box>
+      <Container maxW="container.lg" mt="2em">
+        <Box pd="4">
+          <Flex>
+            <Box mr="1em">
+              <Image
+                src="favicon.ico"
+                alt="Middle School Tutor logo"
+                width="3em"
+              />
+            </Box>
+            <Box>
+              <Heading size="xl" color="blue.500">
+                Middle School Tutor
+              </Heading>
+            </Box>
+            <Spacer />
+            <Box p={2}>
+              <Link
+                href="https://github.com/alecrem/middleschool-deckcheck/"
+                p={4}
+              >
+                <Icon as={AiFillGithub} w={8} h={8} />
+              </Link>
+              <Link href="https://twitter.com/KarawapoM" p={4}>
+                <Icon as={AiFillTwitterCircle} w={8} h={8} />
+              </Link>
+            </Box>
+          </Flex>
+          <Flex>
+            <Box p={2}>
+              <Link href="/">
+                {/* <Heading size="md">Card Search</Heading> */}
+              </Link>
+            </Box>
+          </Flex>
+        </Box>
+      </Container>
       <Container maxW="container.sm" mt="2em">
         <Heading as="h1" size="2xl">
           Card Search
