@@ -22,6 +22,7 @@ const Home: NextPage = (props) => {
   const [url, setUrl] = useState('')
   const [exactMatch, setExactMatch] = useState('')
   const [urlIsSupported, setUrlIsSupported] = useState(false)
+  const [actualDeckUri, setActualDeckUri] = useState('')
   const [urlError, setUrlError] = useState('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +39,7 @@ const Home: NextPage = (props) => {
   }
 
   const getServiceFromUrl = (newUrl: string): string => {
+    setActualDeckUri('')
     let service = 'unsupported'
     const hasHttp =
       newUrl.indexOf('http://') != -1 || newUrl.indexOf('https://') != -1
@@ -48,9 +50,25 @@ const Home: NextPage = (props) => {
     if (
       newUrl.indexOf('/decks/') != -1 &&
       newUrl.indexOf('scryfall.com/') != -1
-    )
+    ) {
       service = 'scryfall'
+      setActualDeckUri(getActualDeckUri(newUrl, service))
+    }
     return service
+  }
+
+  const getActualDeckUri = (deckPageUrl: string, service: string): string => {
+    // https://scryfall.com/@karawapo/decks/9cd7f631-10ab-4c68-8a9a-63909ecb9e58
+    // https://api.scryfall.com/decks/9cd7f631-10ab-4c68-8a9a-63909ecb9e58/export/text
+    if ((service = 'scryfall')) {
+      const pattern = /.*scryfall.com\/(.*)\/decks\/(.*)/
+      const deckUri = deckPageUrl.replace(
+        pattern,
+        'https://api.scryfall.com/decks/$2/export/text'
+      )
+      return deckUri
+    }
+    return deckPageUrl
   }
 
   const legalCards = (props as cardsProps).legalCards
@@ -117,6 +135,13 @@ const Home: NextPage = (props) => {
           <Text mt="1em">
             <NotAllowedIcon color="red.500" /> &nbsp;
             {urlError}
+          </Text>
+        )}
+        {actualDeckUri && (
+          <Text mt="1em">
+            actualDeckUri:
+            <br />
+            {actualDeckUri}
           </Text>
         )}
       </Container>
