@@ -123,7 +123,7 @@ const Home: NextPage = (props) => {
               </Heading>
             </Box>
             <Spacer />
-            <Box p={2}>
+            <Box>
               <Link href="https://github.com/alecrem/middleschool-tutor/" p={4}>
                 <Icon as={AiFillGithub} w={8} h={8} />
               </Link>
@@ -133,9 +133,12 @@ const Home: NextPage = (props) => {
             </Box>
           </Flex>
           <Flex>
-            <Box p={2}>
-              <Link href="/">
-                {/* <Heading size="md">Card Search</Heading> */}
+            <Box pr="2em">
+              <Heading size="md">Card Search</Heading>
+            </Box>
+            <Box pr="2em">
+              <Link href="/deckcheck">
+                <Heading size="md">Deck Check</Heading>
               </Link>
             </Box>
           </Flex>
