@@ -145,7 +145,13 @@ const Home: NextPage = (props) => {
         <Heading as="h1" size="2xl">
           Card Search
         </Heading>
-        <Text mt="1em">Enter a card name in English or Japanese</Text>
+        <Text mt="1em">
+          Enter any English or Japanese text to find all{' '}
+          <Link href="https://www.eternalcentral.com/middleschoolrules/">
+            Middle School legal
+          </Link>{' '}
+          card titles which include it.
+        </Text>
         <InputGroup mt="2em">
           <Input
             name="searchBox"
