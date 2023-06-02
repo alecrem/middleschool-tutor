@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import React, { useState } from 'react'
 import {
-  Box,
   Container,
   Heading,
   Input,
@@ -11,18 +10,14 @@ import {
   Text,
   List,
   ListItem,
-  Link,
-  Flex,
-  Spacer,
-  Icon,
-  Image
+  Link
 } from '@chakra-ui/react'
 import {
   CheckCircleIcon,
   NotAllowedIcon,
   ExternalLinkIcon
 } from '@chakra-ui/icons'
-import { AiFillTwitterCircle, AiFillGithub } from 'react-icons/ai'
+import { Header } from '@/components/Header'
 
 const Home: NextPage = (props) => {
   const [searchBox, setSearchBox] = useState('')
@@ -107,40 +102,7 @@ const Home: NextPage = (props) => {
 
   return (
     <>
-      <Container maxW="container.lg" mt="2em">
-        <Box mb={4}>
-          <Flex>
-            <Box mr="1em">
-              <Image
-                src="favicon.ico"
-                alt="Middle School Tutor logo"
-                width="3em"
-              />
-            </Box>
-            <Box>
-              <Heading size="xl" color="blue.500">
-                Middle School Tutor
-              </Heading>
-            </Box>
-            <Spacer />
-            <Box p={2}>
-              <Link href="https://github.com/alecrem/middleschool-tutor/" p={4}>
-                <Icon as={AiFillGithub} w={8} h={8} />
-              </Link>
-              <Link href="https://twitter.com/KarawapoM" p={4}>
-                <Icon as={AiFillTwitterCircle} w={8} h={8} />
-              </Link>
-            </Box>
-          </Flex>
-          <Flex>
-            <Box p={2}>
-              <Link href="/">
-                {/* <Heading size="md">Card Search</Heading> */}
-              </Link>
-            </Box>
-          </Flex>
-        </Box>
-      </Container>
+      <Header />
       <Container maxW="container.sm" mt="2em">
         <Heading as="h1" size="2xl">
           Card Search
@@ -214,6 +176,9 @@ interface listAsProps {
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(
+    // For offline builds, on the `middleschool-cardlist` repo directory:
+    // python3 -m http.server
+    // 'http://127.0.0.1:8000/output/middleschool.json'
     'https://alecrem.github.io/middleschool-cardlist/output/middleschool.json'
   )
   const legalCards: LegalCards = await res.json()
