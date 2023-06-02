@@ -11,11 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { AiFillTwitterCircle, AiFillGithub } from 'react-icons/ai'
 
-interface Props {
-  tagline?: boolean
-}
-
-const Header: FC<Props> = ({ tagline }) => {
+const Header: FC = () => {
   return (
     <Container maxW="container.lg" mt="2em">
       <Box mb={4}>
