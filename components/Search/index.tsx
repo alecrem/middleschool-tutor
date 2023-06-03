@@ -13,6 +13,7 @@ import {
   ExternalLinkIcon
 } from '@chakra-ui/icons'
 import type { LegalCards, ListAsProps } from '@/utils/dataTypes'
+import { useIsLegal } from '@/hooks/useIsLegal'
 
 interface Props {
   legalcards: LegalCards
@@ -24,6 +25,7 @@ const Search: FC<Props> = (props) => {
   const [exactMatch, setExactMatch] = useState('')
   const [cardIsLegal, setCardIsLegal] = useState(false)
   const [suggestions, setSuggestions] = useState<string[]>([])
+  const { isLegal } = useIsLegal(legalCards)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setExactMatch('')
@@ -36,35 +38,6 @@ const Search: FC<Props> = (props) => {
     }
     if (typeof newSearchBox == 'string') setCardIsLegal(isLegal(newSearchBox))
     setSuggestions(suggestCards(newSearchBox))
-  }
-
-  const isLegal = (newSearchBox: string) => {
-    const englishMatch = inObject(newSearchBox, legalCards.name)
-    if (englishMatch.length > 0) {
-      setExactMatch(englishMatch)
-      return true
-    }
-    const japaneseMatch = inObject(newSearchBox, legalCards.name_ja)
-    if (japaneseMatch.length > 0) {
-      setExactMatch(japaneseMatch)
-      return true
-    }
-    return false
-  }
-
-  const inObject = (needleTerm: string, hayObject: ListAsProps) => {
-    const keys = Object.keys(hayObject)
-    for (let i = 0; i < keys.length; i++) {
-      const key: string = keys[i]
-      let cardWeAreChecking = hayObject[key]
-      if (cardWeAreChecking === null) {
-        continue
-      }
-      if (needleTerm == cardWeAreChecking.toLowerCase()) {
-        return cardWeAreChecking
-      }
-    }
-    return ''
   }
 
   const findOccurrences = (
