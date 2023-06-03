@@ -36,7 +36,11 @@ const Search: FC<Props> = (props) => {
       setSuggestions([])
       return
     }
-    if (typeof newSearchBox == 'string') setCardIsLegal(isLegal(newSearchBox))
+    if (typeof newSearchBox == 'string') {
+      const isLegalRet = isLegal(newSearchBox)
+      setCardIsLegal(isLegalRet.legal)
+      setExactMatch(isLegalRet.exactMatch ?? '')
+    }
     setSuggestions(suggestCards(newSearchBox))
   }
 
