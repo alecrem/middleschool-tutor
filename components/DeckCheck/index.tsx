@@ -66,20 +66,10 @@ const DeckCheck: FC<Props> = (props) => {
         </InputRightElement>
       </InputGroup>
       <List spacing={3} mt="1em">
-        {mainDeck.map((card) => {
+        {mainDeck.filter((card) => !card.legal).map((card) => {
           return (
             <ListItem key={card.name}>
-              {card.legal ? <><CheckCircleIcon color="green.500" /> &nbsp;
-                <Link
-                  href={
-                    'https://scryfall.com/search?q=' +
-                    encodeURIComponent('prefer:oldest !"' + card + '"')
-                  }
-                  isExternal
-                >
-                  {card.name} <ExternalLinkIcon mx="2px" />
-                </Link></>
-                : <><NotAllowedIcon color="red.500" /> {card.name}</>}
+              <NotAllowedIcon color="red.500" /> {card.name}
             </ListItem>
           )
         })}
