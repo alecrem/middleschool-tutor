@@ -4,6 +4,7 @@ import {
   Textarea,
   List,
   ListItem,
+  Switch,
   Box
 } from '@chakra-ui/react'
 import {
@@ -16,29 +17,44 @@ import { useIsLegal } from '@/hooks/useIsLegal'
 interface Props {
   legalcards: LegalCards
 }
+type CardListItem = {
+  name: string
+  legal: boolean
+  lang?: string
+}
 
 const DeckCheck: FC<Props> = (props) => {
   const legalCards = props.legalcards
   const { isLegal } = useIsLegal(legalCards)
-  const [mainDeck, setMainDeck] = useState<{ name: string, legal: boolean }[]>([])
+  const [mainDeck, setMainDeck] = useState<CardListItem[]>([])
+  const [cardLang, setCardLang] = useState('en')
+  const [textAreaInput, setTextAreaInput] = useState<string>()
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleLangSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const lang = event.target.checked ? 'ja' : 'en'
+    setCardLang(lang)
+    validateDeckList(textAreaInput, lang)
+  }
+  const handleListChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.target
-    const newSearchBox = value
-    if (newSearchBox.length < 1) {
+    validateDeckList(value, cardLang)
+    setTextAreaInput(value)
+  }
+  const validateDeckList = ((newSearchBox?: string, lang: string) => {
+    if (newSearchBox === undefined || newSearchBox.length < 1) {
       return
     }
-    const newMainDeck = value.split("\n").filter((line) => line.trim().length > 0).map((line) => {
+    const newMainDeck = newSearchBox.split("\n").filter((line) => line.trim().length > 0).map((line) => {
       const cardName = line.replace(/^[0-9]+ /g, '').trim()
-      const isLegalRet = isLegal(cardName.toLowerCase().trim())
-      return { name: isLegalRet.exactMatch ?? cardName, legal: isLegalRet.legal }
+      const isLegalRet = isLegal(cardName.toLowerCase().trim(), lang)
+      return { name: isLegalRet.exactMatch ?? cardName, legal: isLegalRet.legal, lang: isLegalRet.lang }
     })
     setMainDeck(newMainDeck)
-    if (typeof newSearchBox == 'string') {
-    }
-  }
+  })
 
   const deckNotLegal = () => mainDeck.filter(card => !card.legal).length > 0
+  const cardLangString = () => cardLang === 'en' ? 'English' : 'Japanese'
+
 
   const placeholderIndex = ~~(
     Math.random() * Object.keys(legalCards.name).length
@@ -48,30 +64,39 @@ const DeckCheck: FC<Props> = (props) => {
   return (
     <Box mt="1em">
       <InputGroup>
-        <Box display="block">
+        <Box>
+          <Switch onChange={handleLangSwitch}>
+            {cardLangString()} card names
+          </Switch>
+        </Box>
+      </InputGroup>
+      <InputGroup>
+        <Box mt="1em">
           {deckNotLegal() ? (
             <>
               <NotAllowedIcon color="red.500" />{' '}
-              This lisk is not Middle School legal
+              This {cardLangString()} list is not Middle School legal
             </>
           ) : (
             <>
               <CheckCircleIcon color="green.500" />{' '}
-              This lisk is Middle School legal
+              This {cardLangString()} list is Middle School legal
             </>
           )}
         </Box>
       </InputGroup>
       <InputGroup mt="1em">
+        {textAreaInput}
         <Textarea
+          name={textAreaInput}
           placeholder={placeholder}
           rows={15}
-          onChange={handleChange}
+          onChange={handleListChange}
         />
       </InputGroup>
       {deckNotLegal() && <>
         <Box mt="1em">
-          The following cards are not Middle School legal:
+          The following {cardLangString()} card names are not Middle School legal:
         </Box>
       </>}
       <List>

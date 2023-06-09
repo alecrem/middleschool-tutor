@@ -1,14 +1,18 @@
 import type { LegalCards, ListAsProps } from '@/utils/dataTypes'
 
 const useIsLegal = (legalCards: LegalCards) => {
-  const isLegal = (newSearchBox: string) => {
-    const englishMatch = inObject(newSearchBox, legalCards.name)
-    if (englishMatch.length > 0) {
-      return { legal: true, exactMatch: englishMatch }
+  const isLegal = (newSearchBox: string, lang?: string) => {
+    if (lang === undefined || lang == 'en') {
+      const englishMatch = inObject(newSearchBox, legalCards.name)
+      if (englishMatch.length > 0) {
+        return { legal: true, exactMatch: englishMatch, lang: 'en' }
+      }
     }
-    const japaneseMatch = inObject(newSearchBox, legalCards.name_ja)
-    if (japaneseMatch.length > 0) {
-      return { legal: true, exactMatch: japaneseMatch }
+    if (lang === undefined || lang == 'ja') {
+      const japaneseMatch = inObject(newSearchBox, legalCards.name_ja)
+      if (japaneseMatch.length > 0) {
+        return { legal: true, exactMatch: japaneseMatch, lang: 'ja' }
+      }
     }
     return { legal: false }
   }
