@@ -22,7 +22,6 @@ interface Props {
 
 const Search: FC<Props> = (props) => {
   const legalCards = props.legalcards
-  const [searchBox, setSearchBox] = useState('')
   const [exactMatch, setExactMatch] = useState('')
   const [cardIsLegal, setCardIsLegal] = useState(false)
   const [suggestions, setSuggestions] = useState<string[]>([])
@@ -33,7 +32,6 @@ const Search: FC<Props> = (props) => {
     setExactMatch('')
     const { value } = event.target
     const newSearchBox = value.trim().toLowerCase()
-    setSearchBox(newSearchBox)
     if (newSearchBox.length < 1) {
       setSuggestions([])
       return
@@ -55,7 +53,6 @@ const Search: FC<Props> = (props) => {
     <>
       <InputGroup mt="2em">
         <Input
-          name="searchBox"
           placeholder={placeholder}
           onChange={handleChange}
         />
