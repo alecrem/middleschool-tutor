@@ -33,14 +33,14 @@ const DeckCheck: FC<Props> = (props) => {
   const handleLangSwitch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const lang = event.target.checked ? 'ja' : 'en'
     setCardLang(lang)
-    validateDeckList(textAreaInput, lang)
+    validateDeckList(lang, textAreaInput)
   }
   const handleListChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.target
-    validateDeckList(value, cardLang)
+    validateDeckList(cardLang, value)
     setTextAreaInput(value)
   }
-  const validateDeckList = ((newSearchBox?: string, lang: string) => {
+  const validateDeckList = ((lang: string, newSearchBox?: string,) => {
     if (newSearchBox === undefined || newSearchBox.length < 1) {
       return
     }
