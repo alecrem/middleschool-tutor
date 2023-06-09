@@ -4,11 +4,13 @@ import {
   Container,
   Heading,
   Link,
+  Button,
   Flex,
   Spacer,
   Icon,
   Image
 } from '@chakra-ui/react'
+import NextLink from 'next/link'
 import { AiFillTwitterCircle, AiFillGithub } from 'react-icons/ai'
 
 const Header: FC = () => {
@@ -27,6 +29,18 @@ const Header: FC = () => {
             <Heading size="xl" color="blue.500">
               Middle School Tutor
             </Heading>
+          </Box>
+          <Box p={2}>
+            <NextLink href="/" p={4}>
+              <Button variant='ghost' size='sm'>
+                Card Search
+              </Button>
+            </NextLink>
+            <NextLink href="/deckcheck" p={4}>
+              <Button variant='ghost' size='sm'>
+                Deck Check
+              </Button>
+            </NextLink>
           </Box>
           <Spacer />
           <Box p={2}>
