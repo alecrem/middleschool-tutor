@@ -32,12 +32,12 @@ const Header: FC = () => {
           </Box>
           <Box p={2}>
             <NextLink href="/">
-              <Button variant='ghost' size='sm'>
+              <Button variant="ghost" size="sm">
                 Card Search
               </Button>
             </NextLink>
             <NextLink href="/deckcheck">
-              <Button variant='ghost' size='sm'>
+              <Button variant="ghost" size="sm">
                 Deck Check
               </Button>
             </NextLink>
