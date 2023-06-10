@@ -62,7 +62,10 @@ const DeckCheck: FC<Props> = (props) => {
   const placeholderIndex = ~~(
     Math.random() * Object.keys(legalCards.name).length
   )
-  const placeholder = legalCards.name[placeholderIndex]
+  const placeholder =
+    cardLang === 'ja' && legalCards.name_ja[placeholderIndex] !== null
+      ? legalCards.name_ja[placeholderIndex]
+      : legalCards.name[placeholderIndex]
 
   return (
     <Box mt="1em">
