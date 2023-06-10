@@ -7,10 +7,7 @@ import {
   Switch,
   Box
 } from '@chakra-ui/react'
-import {
-  CheckCircleIcon,
-  NotAllowedIcon
-} from '@chakra-ui/icons'
+import { CheckCircleIcon, NotAllowedIcon } from '@chakra-ui/icons'
 import type { LegalCards } from '@/utils/dataTypes'
 import { useIsLegal } from '@/hooks/useIsLegal'
 
@@ -40,21 +37,27 @@ const DeckCheck: FC<Props> = (props) => {
     validateDeckList(cardLang, value)
     setTextAreaInput(value)
   }
-  const validateDeckList = ((lang: string, newSearchBox?: string,) => {
+  const validateDeckList = (lang: string, newSearchBox?: string) => {
     if (newSearchBox === undefined || newSearchBox.length < 1) {
       return
     }
-    const newMainDeck = newSearchBox.split("\n").filter((line) => line.trim().length > 0).map((line) => {
-      const cardName = line.replace(/^[0-9]+ /g, '').trim()
-      const isLegalRet = isLegal(cardName.toLowerCase().trim(), lang)
-      return { name: isLegalRet.exactMatch ?? cardName, legal: isLegalRet.legal, lang: isLegalRet.lang }
-    })
+    const newMainDeck = newSearchBox
+      .split('\n')
+      .filter((line) => line.trim().length > 0)
+      .map((line) => {
+        const cardName = line.replace(/^[0-9]+ /g, '').trim()
+        const isLegalRet = isLegal(cardName.toLowerCase().trim(), lang)
+        return {
+          name: isLegalRet.exactMatch ?? cardName,
+          legal: isLegalRet.legal,
+          lang: isLegalRet.lang
+        }
+      })
     setMainDeck(newMainDeck)
-  })
+  }
 
-  const deckNotLegal = () => mainDeck.filter(card => !card.legal).length > 0
-  const cardLangString = () => cardLang === 'en' ? 'English' : 'Japanese'
-
+  const deckNotLegal = () => mainDeck.filter((card) => !card.legal).length > 0
+  const cardLangString = () => (cardLang === 'en' ? 'English' : 'Japanese')
 
   const placeholderIndex = ~~(
     Math.random() * Object.keys(legalCards.name).length
@@ -74,13 +77,13 @@ const DeckCheck: FC<Props> = (props) => {
         <Box mt="1em">
           {deckNotLegal() ? (
             <>
-              <NotAllowedIcon color="red.500" />{' '}
-              This {cardLangString()} list is not Middle School legal
+              <NotAllowedIcon color="red.500" /> This {cardLangString()} list is
+              not Middle School legal
             </>
           ) : (
             <>
-              <CheckCircleIcon color="green.500" />{' '}
-              This {cardLangString()} list is Middle School legal
+              <CheckCircleIcon color="green.500" /> This {cardLangString()} list
+              is Middle School legal
             </>
           )}
         </Box>
@@ -94,19 +97,24 @@ const DeckCheck: FC<Props> = (props) => {
           onChange={handleListChange}
         />
       </InputGroup>
-      {deckNotLegal() && <>
-        <Box mt="1em">
-          The following {cardLangString()} card names are not Middle School legal:
-        </Box>
-      </>}
+      {deckNotLegal() && (
+        <>
+          <Box mt="1em">
+            The following {cardLangString()} card names are not Middle School
+            legal:
+          </Box>
+        </>
+      )}
       <List>
-        {mainDeck.filter((card) => !card.legal).map((card) => {
-          return (
-            <ListItem key={card.name}>
-              <NotAllowedIcon color="red.500" /> {card.name}
-            </ListItem>
-          )
-        })}
+        {mainDeck
+          .filter((card) => !card.legal)
+          .map((card) => {
+            return (
+              <ListItem key={card.name}>
+                <NotAllowedIcon color="red.500" /> {card.name}
+              </ListItem>
+            )
+          })}
       </List>
     </Box>
   )

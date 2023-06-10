@@ -52,10 +52,7 @@ const Search: FC<Props> = (props) => {
   return (
     <>
       <InputGroup mt="2em">
-        <Input
-          placeholder={placeholder}
-          onChange={handleChange}
-        />
+        <Input placeholder={placeholder} onChange={handleChange} />
         <InputRightElement>
           {cardIsLegal ? (
             <>

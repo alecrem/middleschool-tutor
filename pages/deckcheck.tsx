@@ -19,7 +19,8 @@ const DeckCheckPage: NextPage = (props) => {
           Paste or type your deck list here to confirm that every card is{' '}
           <Link href="https://www.eternalcentral.com/middleschoolrules/">
             Middle School legal
-          </Link>.
+          </Link>
+          .
         </Text>
         <DeckCheck legalcards={legalCards} />
       </Container>
