@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import { Container, Heading, Text, Link } from '@chakra-ui/react'
 import { Header } from '@/components/Header'
+import { Footer } from '@/components/Footer'
 import { Search } from '@/components/Search'
 import type { CardsProps, LegalCards } from '@/utils/dataTypes'
 
@@ -24,6 +25,7 @@ const Home: NextPage = (props) => {
         </Text>
         <Search legalcards={legalCards} />
       </Container>
+      <Footer />
     </>
   )
 }
