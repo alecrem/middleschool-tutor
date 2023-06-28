@@ -38,7 +38,7 @@ const Header: FC = () => {
             </NextLink>
             <NextLink href="/deckcheck">
               <Button variant="ghost" size="sm">
-                Deck Check
+                List Check
               </Button>
             </NextLink>
           </Box>

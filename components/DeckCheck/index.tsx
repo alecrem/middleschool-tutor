@@ -56,13 +56,13 @@ const DeckCheck: FC<Props> = (props) => {
         <Box mt="1em">
           {deckNotLegal() ? (
             <>
-              <NotAllowedIcon color="red.500" /> This list is not Middle School
-              legal
+              <NotAllowedIcon color="red.500" /> This is not a list of Middle
+              School-legal cards
             </>
           ) : (
             <>
-              <CheckCircleIcon color="green.500" /> This list is Middle School
-              legal
+              <CheckCircleIcon color="green.500" /> This is a list of Middle
+              School-legal cards
             </>
           )}
         </Box>
