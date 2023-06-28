@@ -14,10 +14,10 @@ const DeckCheckPage: NextPage = (props) => {
       <Header />
       <Container maxW="container.sm" mt="2em">
         <Heading as="h1" size="2xl">
-          Deck Check
+          List Check
         </Heading>
         <Text mt="1em">
-          Paste or type your deck list here to confirm that every card is{' '}
+          Paste or type your list here to confirm that every card in it is{' '}
           <Link href="https://www.eternalcentral.com/middleschoolrules/">
             Middle School legal
           </Link>

@@ -2,8 +2,8 @@ import { Container, Text } from '@chakra-ui/react'
 
 function Footer() {
   return (
-    <Container maxW="container.sm" mt="2em">
-      <Text>
+    <Container maxW="container.sm" my="2em">
+      <Text fontSize="xs">
         Portions of Middle School Tutor are unofficial Fan Content permitted
         under the Wizards of the Coast Fan Content Policy. The literal and
         graphical information presented on this site about Magic: The Gathering,
@@ -14,9 +14,8 @@ function Footer() {
         Coast. The GitHub and Twitter logos are copyright their respective
         owners. Middle School Tutor is not produced by or endorsed by these
         services.
-        <br />
-        All other content MIT licensed since 2022 by alecrem.
       </Text>
+      <Text>All other content MIT licensed since 2022 by alecrem.</Text>
     </Container>
   )
 }
