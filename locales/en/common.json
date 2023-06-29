@@ -1,0 +1,13 @@
+{
+  "site-title": "Middle School Tutor",
+  "nav": {
+    "search": "Card Search",
+    "list": "List Check"
+  },
+  "search": {
+    "title": "Card Search",
+    "desc1": "Enter any English or Japanese text to find all",
+    "desc2": "Middle School legal",
+    "desc3": "card titles which include it."
+  }
+}
