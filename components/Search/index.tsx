@@ -12,7 +12,7 @@ import {
   NotAllowedIcon,
   ExternalLinkIcon
 } from '@chakra-ui/icons'
-import type { LegalCards, ListAsProps } from '@/utils/dataTypes'
+import type { LegalCards } from '@/utils/dataTypes'
 import { useIsLegal } from '@/hooks/useIsLegal'
 import { useSuggestCards } from '@/hooks/useSuggestCards'
 
