@@ -1,0 +1,13 @@
+{
+  "site-title": "Middle School Tutor",
+  "nav": {
+    "search": "カード検索",
+    "list": "リストチェック"
+  },
+  "search": {
+    "title": "カード検索",
+    "desc1": "カードの英語名か日本語名を入力し始めるとEnter any English or Japanese text to find all",
+    "desc2": "ミドルスクールで使用可能",
+    "desc3": "なカード名が引っかかります。"
+  }
+}
