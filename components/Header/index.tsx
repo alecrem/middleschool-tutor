@@ -13,9 +13,10 @@ import {
 import NextLink from 'next/link'
 import { AiFillTwitterCircle, AiFillGithub } from 'react-icons/ai'
 import useTranslation from 'next-translate/useTranslation'
+import setLanguage from 'next-translate/setLanguage'
 
 const Header: FC = () => {
-  const { t } = useTranslation('common')
+  const { t, lang } = useTranslation('common')
 
   return (
     <Container maxW="container.lg" mt="2em">
@@ -46,6 +47,26 @@ const Header: FC = () => {
             </NextLink>
           </Box>
           <Spacer />
+          <Box py={2}>
+            {lang !== 'en' && (
+              <Button
+                variant="outline"
+                size={'sm'}
+                onClick={async () => await setLanguage('en')}
+              >
+                English
+              </Button>
+            )}
+            {lang !== 'ja' && (
+              <Button
+                variant="outline"
+                size={'sm'}
+                onClick={async () => await setLanguage('ja')}
+              >
+                日本語
+              </Button>
+            )}
+          </Box>
           <Box p={2}>
             <Link href="https://github.com/alecrem/middleschool-tutor/" p={4}>
               <Icon as={AiFillGithub} w={8} h={8} />
