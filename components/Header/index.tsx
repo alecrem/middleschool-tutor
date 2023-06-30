@@ -23,7 +23,7 @@ const Header: FC = () => {
         <Flex>
           <Box mr="1em">
             <Image
-              src="favicon.ico"
+              src="/favicon.ico"
               alt="Middle School Tutor logo"
               width="3em"
             />
