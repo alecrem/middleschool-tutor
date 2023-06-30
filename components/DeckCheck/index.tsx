@@ -1,4 +1,5 @@
 import { FC, useState } from 'react'
+import useTranslation from 'next-translate/useTranslation'
 import { InputGroup, Textarea, List, ListItem, Box } from '@chakra-ui/react'
 import { CheckCircleIcon, NotAllowedIcon } from '@chakra-ui/icons'
 import type { LegalCards } from '@/utils/dataTypes'
@@ -14,6 +15,7 @@ type CardListItem = {
 }
 
 const DeckCheck: FC<Props> = (props) => {
+  const { t } = useTranslation('common')
   const legalCards = props.legalcards
   const { isLegal } = useIsLegal(legalCards)
   const [mainDeck, setMainDeck] = useState<CardListItem[]>([])
@@ -56,13 +58,11 @@ const DeckCheck: FC<Props> = (props) => {
         <Box mt="1em">
           {deckNotLegal() ? (
             <>
-              <NotAllowedIcon color="red.500" /> This is not a list of Middle
-              School-legal cards
+              <NotAllowedIcon color="red.500" /> {t('deckcheck.illegal')}
             </>
           ) : (
             <>
-              <CheckCircleIcon color="green.500" /> This is a list of Middle
-              School-legal cards
+              <CheckCircleIcon color="green.500" /> {t('deckcheck.legal')}
             </>
           )}
         </Box>
@@ -78,9 +78,7 @@ const DeckCheck: FC<Props> = (props) => {
       </InputGroup>
       {deckNotLegal() && (
         <>
-          <Box mt="1em">
-            The following card names are not Middle School legal:
-          </Box>
+          <Box mt="1em">{t('deckcheck.illegal-list')}</Box>
         </>
       )}
       <List>

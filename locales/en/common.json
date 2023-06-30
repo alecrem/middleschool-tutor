@@ -9,5 +9,14 @@
     "desc1": "Enter any English or Japanese text to find all",
     "desc2": "Middle School legal",
     "desc3": "card titles which include it."
+  },
+  "deckcheck": {
+    "title": "List Check",
+    "desc1": "Paste or type your list here to confirm that every card in it is ",
+    "desc2": "Middle School legal",
+    "desc3": ".",
+    "legal": "This is a list of Middle School-legal cards",
+    "illegal": "This list includes one or more cards which are not Middle School-legal",
+    "illegal-list": "The following cards are not Middle School legal:"
   }
 }

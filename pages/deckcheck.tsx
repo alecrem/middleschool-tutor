@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
+import useTranslation from 'next-translate/useTranslation'
 import { Container, Heading, Text, Link } from '@chakra-ui/react'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
@@ -8,20 +9,21 @@ import type { CardsProps, LegalCards } from '@/utils/dataTypes'
 
 const DeckCheckPage: NextPage = (props) => {
   const legalCards = (props as CardsProps).legalCards
+  const { t } = useTranslation('common')
 
   return (
     <>
       <Header />
       <Container maxW="container.sm" mt="2em">
         <Heading as="h1" size="2xl">
-          List Check
+          {t('deckcheck.title')}
         </Heading>
         <Text mt="1em">
-          Paste or type your list here to confirm that every card in it is{' '}
+          {t('deckcheck.desc1')}
           <Link href="https://www.eternalcentral.com/middleschoolrules/">
-            Middle School legal
+            {t('deckcheck.desc2')}
           </Link>
-          .
+          {t('deckcheck.desc3')}
         </Text>
         <DeckCheck legalcards={legalCards} />
       </Container>
