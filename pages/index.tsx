@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { GetStaticProps } from 'next'
 import useTranslation from 'next-translate/useTranslation'
 import { Container, Heading, Text, Link } from '@chakra-ui/react'
-import { Header } from '@/components/Header'
+import { NavBar } from '@/components/NavBar'
 import { Footer } from '@/components/Footer'
 import { Search } from '@/components/Search'
 import type { CardsProps, LegalCards } from '@/utils/dataTypes'
@@ -13,7 +13,7 @@ const Home: NextPage = (props) => {
 
   return (
     <>
-      <Header />
+      <NavBar />
       <Container maxW="container.sm" mt="2em">
         <Heading as="h1" size="2xl">
           {t('search.title')}
