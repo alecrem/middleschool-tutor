@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useState, useRef } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import {
   InputGroup,
@@ -30,6 +30,7 @@ const DeckCheck: FC<Props> = (props) => {
   const [textAreaInput, setTextAreaInput] = useState<string>()
   const { suggestCards } = useSuggestCards(legalCards)
   const [suggestions, setSuggestions] = useState<string[]>([])
+  const textareaRef = useRef<null | HTMLTextAreaElement>(null)
 
   const handleListChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = event.target
@@ -83,6 +84,9 @@ const DeckCheck: FC<Props> = (props) => {
     setTextAreaInput(newDeckList)
     validateDeckList(newDeckList)
     setSuggestions([])
+    const current = textareaRef.current
+    if (current === null) return
+    current.focus()
   }
 
   const placeholderIndex = ~~(
@@ -111,6 +115,7 @@ const DeckCheck: FC<Props> = (props) => {
           value={textAreaInput}
           placeholder={placeholder}
           rows={15}
+          ref={textareaRef}
           onChange={handleListChange}
         />
       </InputGroup>
