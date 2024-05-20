@@ -2982,10 +2982,10 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
-next-translate-plugin@^2.4.4:
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/next-translate-plugin/-/next-translate-plugin-2.4.4.tgz#473725f1735bae17003ce4f00fe08262f047e416"
-  integrity sha512-8olUhdy52IPwLlogrs0KP/FijMZ0Ijf+mWLZtOaFJ7vhCWLSKAE0eb9vYBI+N3T3jjyedC+ufo6g/d4Y5e1HBg==
+next-translate-plugin@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/next-translate-plugin/-/next-translate-plugin-2.6.2.tgz#b08044699ff1a66fc028b818ba300b6308d2d057"
+  integrity sha512-qfvYG//QfP7b+A/xXGP9K+bdswkAFCabguemuEqjxu+j8pRNoF+jWKmepRXRaAcn1PqFLBj6PBvYkqD1r5k5Zw==
   dependencies:
     typescript "4.5.2"
 
