@@ -1,6 +1,6 @@
 import { FC, useState, useRef } from 'react'
 import useTranslation from 'next-translate/useTranslation'
-import { Field, Textarea, List, Box, Button } from '@chakra-ui/react'
+import { Field, Textarea, List, Box, Button, Icon } from '@chakra-ui/react'
 import { LuCircleCheck, LuBan } from 'react-icons/lu'
 import type { LegalCards } from '@/utils/dataTypes'
 import { useIsLegal } from '@/hooks/useIsLegal'
@@ -93,11 +93,17 @@ const DeckCheck: FC<Props> = (props) => {
         <Box mt="1em">
           {deckNotLegal() ? (
             <>
-              <LuBan color="red.500" /> {t('deckcheck.illegal')}
+              <Icon color="red.500">
+                <LuBan />
+              </Icon>
+              {t('deckcheck.illegal')}
             </>
           ) : (
             <>
-              <LuCircleCheck color="green.500" /> {t('deckcheck.legal')}
+              <Icon color="green.500">
+                <LuCircleCheck />
+              </Icon>
+              {t('deckcheck.legal')}
             </>
           )}
         </Box>
@@ -112,7 +118,6 @@ const DeckCheck: FC<Props> = (props) => {
           onChange={handleListChange}
         />
       </Field.Root>
-      {/* {exactMatch.length <= 0 && ( */}
       <Box mt="1em">
         {suggestions.map((e) => {
           return (
@@ -129,16 +134,18 @@ const DeckCheck: FC<Props> = (props) => {
           )
         })}
       </Box>
-      {/* )} */}
 
       {deckNotLegal() && <Box mt="1em">{t('deckcheck.illegal-list')}</Box>}
-      <List.Root>
+      <List.Root variant="plain">
         {mainDeck
           .filter((card) => !card.legal)
           .map((card) => {
             return (
               <List.Item key={card.name}>
-                <LuBan color="red.500" /> {card.name}
+                <List.Indicator asChild color="red.500">
+                  <LuBan />
+                </List.Indicator>{' '}
+                {card.name}
               </List.Item>
             )
           })}

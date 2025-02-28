@@ -19,10 +19,10 @@ const Home: NextPage = (props) => {
           {t('search.title')}
         </Heading>
         <Text mt="1em">
-          {t('search.desc1')}{' '}
+          {t('search.desc1')}
           <Link href="https://www.eternalcentral.com/middleschoolrules/">
             {t('search.desc2')}
-          </Link>{' '}
+          </Link>
           {t('search.desc3')}
         </Text>
         <Search legalcards={legalCards} />

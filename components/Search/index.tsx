@@ -1,5 +1,5 @@
 import { FC, useState } from 'react'
-import { Input, List, Link } from '@chakra-ui/react'
+import { Icon, Input, List, Link } from '@chakra-ui/react'
 import { LuCircleCheck, LuBan } from 'react-icons/lu'
 import type { LegalCards } from '@/utils/dataTypes'
 import { useIsLegal } from '@/hooks/useIsLegal'
@@ -53,29 +53,40 @@ const Search: FC<Props> = (props) => {
                   encodeURIComponent('prefer:oldest !"' + exactMatch + '"')
                 }
               >
-                <LuCircleCheck color="green.500" />
-                <LuExternalLink />
+                <Icon color="green.500">
+                  <LuCircleCheck />
+                </Icon>
+                <Icon>
+                  <LuExternalLink />
+                </Icon>
               </Link>
             </>
           ) : (
-            <LuBan color="red.500" />
+            <Icon color="red.500">
+              <LuBan />
+            </Icon>
           )
         }
       >
         <Input placeholder={placeholder} onChange={handleChange} />
       </InputGroup>
-      <List.Root gap={3} mt="1em">
+      <List.Root variant="plain" gap={3} mt="1em">
         {suggestions.map((e) => {
           return (
             <List.Item key={e}>
-              <LuCircleCheck color="green.500" /> &nbsp;
+              <List.Indicator asChild color="green.500">
+                <LuCircleCheck />
+              </List.Indicator>
               <Link
                 href={
                   'https://scryfall.com/search?q=' +
                   encodeURIComponent('prefer:oldest !"' + e + '"')
                 }
               >
-                {e} <LuExternalLink />
+                {e}
+                <Icon>
+                  <LuExternalLink />
+                </Icon>
               </Link>
             </List.Item>
           )

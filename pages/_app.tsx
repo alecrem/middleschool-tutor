@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Provider>
       <Head>
         <title>Middle School Tutor</title>
-      </Head>{' '}
+      </Head>
       <Component {...pageProps} />
     </Provider>
   )
