@@ -9,13 +9,16 @@ import {
   IconButton,
   Button,
   useDisclosure,
-  useColorModeValue,
-  Stack,
-  useColorMode
+  Stack
 } from '@chakra-ui/react'
-import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
+import { LuMenu, LuX } from 'react-icons/lu'
 import useTranslation from 'next-translate/useTranslation'
 import setLanguage from 'next-translate/setLanguage'
+import {
+  ColorModeButton,
+  useColorMode,
+  useColorModeValue
+} from '@/components/ui/color-mode'
 
 const NavLink = ({ href, children }: { href: string; children: ReactNode }) => (
   <NextLink href={href}>
@@ -34,7 +37,7 @@ const NavLink = ({ href, children }: { href: string; children: ReactNode }) => (
 )
 
 const NavBar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { open, onOpen, onClose } = useDisclosure()
   const { colorMode, toggleColorMode } = useColorMode()
   const { t, lang } = useTranslation('common')
   const links = [
@@ -48,12 +51,13 @@ const NavBar = () => {
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
             aria-label={'Open Menu'}
             display={{ md: 'none' }}
-            onClick={isOpen ? onClose : onOpen}
-          />
-          <HStack spacing={8} alignItems={'center'}>
+            onClick={open ? onClose : onOpen}
+          >
+            {open ? <LuX /> : <LuMenu />}
+          </IconButton>
+          <HStack gap={8} alignItems={'center'}>
             <Box mr="1em">
               <Image
                 src="/favicon.ico"
@@ -61,11 +65,7 @@ const NavBar = () => {
                 width="3em"
               />
             </Box>
-            <HStack
-              as={'nav'}
-              spacing={4}
-              display={{ base: 'none', md: 'flex' }}
-            >
+            <HStack as={'nav'} gap={4} display={{ base: 'none', md: 'flex' }}>
               <Heading size="sm" color="blue.500">
                 {t('site-title')}
               </Heading>
@@ -89,15 +89,16 @@ const NavBar = () => {
                 </Button>
               )}
             </Box>
-            <Button onClick={toggleColorMode}>
+            <ColorModeButton />
+            {/* <Button onClick={toggleColorMode}>
               {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-            </Button>
+            </Button> */}
           </Flex>
         </Flex>
 
-        {isOpen ? (
+        {open ? (
           <Box pb={4} display={{ md: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
+            <Stack as={'nav'} gap={4}>
               {links.map((link) => (
                 <NavLink key={link.url} href={link.url}>
                   {link.text}

@@ -1,20 +1,11 @@
 import { FC, useState } from 'react'
-import {
-  Input,
-  InputGroup,
-  InputRightElement,
-  List,
-  ListItem,
-  Link
-} from '@chakra-ui/react'
-import {
-  CheckCircleIcon,
-  NotAllowedIcon,
-  ExternalLinkIcon
-} from '@chakra-ui/icons'
+import { Input, List, Link } from '@chakra-ui/react'
+import { LuCircleCheck, LuBan } from 'react-icons/lu'
 import type { LegalCards } from '@/utils/dataTypes'
 import { useIsLegal } from '@/hooks/useIsLegal'
 import { useSuggestCards } from '@/hooks/useSuggestCards'
+import { LuExternalLink } from 'react-icons/lu'
+import { InputGroup } from '../ui/input-group'
 
 interface Props {
   legalcards: LegalCards
@@ -51,45 +42,45 @@ const Search: FC<Props> = (props) => {
 
   return (
     <>
-      <InputGroup mt="2em">
-        <Input placeholder={placeholder} onChange={handleChange} />
-        <InputRightElement>
-          {cardIsLegal ? (
+      <InputGroup
+        mt="2em"
+        endElement={
+          cardIsLegal ? (
             <>
               <Link
                 href={
                   'https://scryfall.com/search?q=' +
                   encodeURIComponent('prefer:oldest !"' + exactMatch + '"')
                 }
-                isExternal
               >
-                <CheckCircleIcon color="green.500" />
-                <ExternalLinkIcon mx="2px" />
+                <LuCircleCheck color="green.500" />
+                <LuExternalLink />
               </Link>
             </>
           ) : (
-            <NotAllowedIcon color="red.500" />
-          )}
-        </InputRightElement>
+            <LuBan color="red.500" />
+          )
+        }
+      >
+        <Input placeholder={placeholder} onChange={handleChange} />
       </InputGroup>
-      <List spacing={3} mt="1em">
+      <List.Root gap={3} mt="1em">
         {suggestions.map((e) => {
           return (
-            <ListItem key={e}>
-              <CheckCircleIcon color="green.500" /> &nbsp;
+            <List.Item key={e}>
+              <LuCircleCheck color="green.500" /> &nbsp;
               <Link
                 href={
                   'https://scryfall.com/search?q=' +
                   encodeURIComponent('prefer:oldest !"' + e + '"')
                 }
-                isExternal
               >
-                {e} <ExternalLinkIcon mx="2px" />
+                {e} <LuExternalLink />
               </Link>
-            </ListItem>
+            </List.Item>
           )
         })}
-      </List>
+      </List.Root>
     </>
   )
 }

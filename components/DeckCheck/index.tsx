@@ -1,14 +1,7 @@
 import { FC, useState, useRef } from 'react'
 import useTranslation from 'next-translate/useTranslation'
-import {
-  InputGroup,
-  Textarea,
-  List,
-  ListItem,
-  Box,
-  Button
-} from '@chakra-ui/react'
-import { CheckCircleIcon, NotAllowedIcon } from '@chakra-ui/icons'
+import { Field, Textarea, List, Box, Button } from '@chakra-ui/react'
+import { LuCircleCheck, LuBan } from 'react-icons/lu'
 import type { LegalCards } from '@/utils/dataTypes'
 import { useIsLegal } from '@/hooks/useIsLegal'
 import { useSuggestCards } from '@/hooks/useSuggestCards'
@@ -96,20 +89,20 @@ const DeckCheck: FC<Props> = (props) => {
 
   return (
     <Box mt="1em">
-      <InputGroup>
+      <Field.Root>
         <Box mt="1em">
           {deckNotLegal() ? (
             <>
-              <NotAllowedIcon color="red.500" /> {t('deckcheck.illegal')}
+              <LuBan color="red.500" /> {t('deckcheck.illegal')}
             </>
           ) : (
             <>
-              <CheckCircleIcon color="green.500" /> {t('deckcheck.legal')}
+              <LuCircleCheck color="green.500" /> {t('deckcheck.legal')}
             </>
           )}
         </Box>
-      </InputGroup>
-      <InputGroup mt="1em">
+      </Field.Root>
+      <Field.Root mt="1em">
         <Textarea
           name={textAreaInput}
           value={textAreaInput}
@@ -118,7 +111,7 @@ const DeckCheck: FC<Props> = (props) => {
           ref={textareaRef}
           onChange={handleListChange}
         />
-      </InputGroup>
+      </Field.Root>
       {/* {exactMatch.length <= 0 && ( */}
       <Box mt="1em">
         {suggestions.map((e) => {
@@ -139,17 +132,17 @@ const DeckCheck: FC<Props> = (props) => {
       {/* )} */}
 
       {deckNotLegal() && <Box mt="1em">{t('deckcheck.illegal-list')}</Box>}
-      <List>
+      <List.Root>
         {mainDeck
           .filter((card) => !card.legal)
           .map((card) => {
             return (
-              <ListItem key={card.name}>
-                <NotAllowedIcon color="red.500" /> {card.name}
-              </ListItem>
+              <List.Item key={card.name}>
+                <LuBan color="red.500" /> {card.name}
+              </List.Item>
             )
           })}
-      </List>
+      </List.Root>
     </Box>
   )
 }
