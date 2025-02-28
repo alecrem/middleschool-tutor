@@ -14,7 +14,7 @@ const Home: NextPage = (props) => {
   return (
     <>
       <NavBar />
-      <Container maxW="container.sm" mt="2em">
+      <Container maxW="2xl" mt="2em">
         <Heading as="h1" size="2xl">
           {t('search.title')}
         </Heading>

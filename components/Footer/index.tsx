@@ -3,7 +3,7 @@ import { AiFillTwitterCircle, AiFillGithub } from 'react-icons/ai'
 
 function Footer() {
   return (
-    <Container maxW="container.sm" my="2em">
+    <Container maxW="2xl" my="2em">
       <Text fontSize="xs">
         Portions of Middle School Tutor are unofficial Fan Content permitted
         under the Wizards of the Coast Fan Content Policy. The literal and
