@@ -22,15 +22,7 @@ import {
 
 const NavLink = ({ href, children }: { href: string; children: ReactNode }) => (
   <NextLink href={href}>
-    <Button
-      px={2}
-      py={1}
-      rounded={'md'}
-      _hover={{
-        textDecoration: 'none',
-        bg: useColorModeValue('gray.200', 'gray.700')
-      }}
-    >
+    <Button size="sm" variant="subtle" px={2} py={1} rounded={'md'}>
       {children}
     </Button>
   </NextLink>
@@ -66,7 +58,7 @@ const NavBar = () => {
               />
             </Box>
             <HStack as={'nav'} gap={4} display={{ base: 'none', md: 'flex' }}>
-              <Heading size="sm" color="blue.500">
+              <Heading size="md" color="blue.500">
                 {t('site-title')}
               </Heading>
               {links.map((link) => (
@@ -79,20 +71,25 @@ const NavBar = () => {
           <Flex alignItems={'center'}>
             <Box py={2} pr={2}>
               {lang !== 'en' && (
-                <Button onClick={async () => await setLanguage('en')}>
+                <Button
+                  variant="subtle"
+                  size="sm"
+                  onClick={async () => await setLanguage('en')}
+                >
                   English
                 </Button>
               )}
               {lang !== 'ja' && (
-                <Button onClick={async () => await setLanguage('ja')}>
+                <Button
+                  variant="subtle"
+                  size="sm"
+                  onClick={async () => await setLanguage('ja')}
+                >
                   日本語
                 </Button>
               )}
             </Box>
             <ColorModeButton />
-            {/* <Button onClick={toggleColorMode}>
-              {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-            </Button> */}
           </Flex>
         </Flex>
 

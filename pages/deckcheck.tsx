@@ -15,7 +15,7 @@ const DeckCheckPage: NextPage = (props) => {
     <>
       <NavBar />
       <Container maxW="2xl" mt="2em">
-        <Heading as="h1" size="2xl">
+        <Heading as="h1" size="5xl">
           {t('deckcheck.title')}
         </Heading>
         <Text mt="1em">
