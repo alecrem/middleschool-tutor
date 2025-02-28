@@ -3,7 +3,7 @@ import { AiFillTwitterCircle, AiFillGithub } from 'react-icons/ai'
 
 function Footer() {
   return (
-    <Container maxW="container.sm" my="2em">
+    <Container maxW="2xl" my="2em">
       <Text fontSize="xs">
         Portions of Middle School Tutor are unofficial Fan Content permitted
         under the Wizards of the Coast Fan Content Policy. The literal and
@@ -16,7 +16,7 @@ function Footer() {
         owners. Middle School Tutor is not produced by or endorsed by these
         services.
       </Text>
-      <HStack spacing={8} pt={4}>
+      <HStack gap={8} pt={4}>
         <Box>
           <Link href="https://github.com/alecrem/middleschool-tutor/" p={4}>
             <Icon as={AiFillGithub} w={8} h={8} />

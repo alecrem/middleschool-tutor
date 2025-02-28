@@ -9,32 +9,27 @@ import {
   IconButton,
   Button,
   useDisclosure,
-  useColorModeValue,
-  Stack,
-  useColorMode
+  Stack
 } from '@chakra-ui/react'
-import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
+import { LuMenu, LuX } from 'react-icons/lu'
 import useTranslation from 'next-translate/useTranslation'
 import setLanguage from 'next-translate/setLanguage'
+import {
+  ColorModeButton,
+  useColorMode,
+  useColorModeValue
+} from '@/components/ui/color-mode'
 
 const NavLink = ({ href, children }: { href: string; children: ReactNode }) => (
   <NextLink href={href}>
-    <Button
-      px={2}
-      py={1}
-      rounded={'md'}
-      _hover={{
-        textDecoration: 'none',
-        bg: useColorModeValue('gray.200', 'gray.700')
-      }}
-    >
+    <Button size="sm" variant="subtle" px={2} py={1} rounded={'md'}>
       {children}
     </Button>
   </NextLink>
 )
 
 const NavBar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { open, onOpen, onClose } = useDisclosure()
   const { colorMode, toggleColorMode } = useColorMode()
   const { t, lang } = useTranslation('common')
   const links = [
@@ -48,12 +43,13 @@ const NavBar = () => {
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
             aria-label={'Open Menu'}
             display={{ md: 'none' }}
-            onClick={isOpen ? onClose : onOpen}
-          />
-          <HStack spacing={8} alignItems={'center'}>
+            onClick={open ? onClose : onOpen}
+          >
+            {open ? <LuX /> : <LuMenu />}
+          </IconButton>
+          <HStack gap={8} alignItems={'center'}>
             <Box mr="1em">
               <Image
                 src="/favicon.ico"
@@ -61,12 +57,8 @@ const NavBar = () => {
                 width="3em"
               />
             </Box>
-            <HStack
-              as={'nav'}
-              spacing={4}
-              display={{ base: 'none', md: 'flex' }}
-            >
-              <Heading size="sm" color="blue.500">
+            <HStack as={'nav'} gap={4} display={{ base: 'none', md: 'flex' }}>
+              <Heading size="md" color="blue.500">
                 {t('site-title')}
               </Heading>
               {links.map((link) => (
@@ -79,25 +71,31 @@ const NavBar = () => {
           <Flex alignItems={'center'}>
             <Box py={2} pr={2}>
               {lang !== 'en' && (
-                <Button onClick={async () => await setLanguage('en')}>
+                <Button
+                  variant="subtle"
+                  size="sm"
+                  onClick={async () => await setLanguage('en')}
+                >
                   English
                 </Button>
               )}
               {lang !== 'ja' && (
-                <Button onClick={async () => await setLanguage('ja')}>
+                <Button
+                  variant="subtle"
+                  size="sm"
+                  onClick={async () => await setLanguage('ja')}
+                >
                   日本語
                 </Button>
               )}
             </Box>
-            <Button onClick={toggleColorMode}>
-              {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-            </Button>
+            <ColorModeButton />
           </Flex>
         </Flex>
 
-        {isOpen ? (
+        {open ? (
           <Box pb={4} display={{ md: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
+            <Stack as={'nav'} gap={4}>
               {links.map((link) => (
                 <NavLink key={link.url} href={link.url}>
                   {link.text}
