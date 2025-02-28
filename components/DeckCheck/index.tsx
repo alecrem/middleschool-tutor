@@ -33,6 +33,7 @@ const DeckCheck: FC<Props> = (props) => {
   }
   const validateDeckList = (newSearchBox?: string) => {
     if (newSearchBox === undefined || newSearchBox.length < 1) {
+      setMainDeck([])
       return
     }
     const newMainDeck = newSearchBox
@@ -91,21 +92,22 @@ const DeckCheck: FC<Props> = (props) => {
     <Box mt="1em">
       <Field.Root>
         <Box mt="1em">
-          {deckNotLegal() ? (
-            <>
-              <Icon color="red.500">
-                <LuBan />
-              </Icon>
-              {t('deckcheck.illegal')}
-            </>
-          ) : (
-            <>
-              <Icon color="green.500">
-                <LuCircleCheck />
-              </Icon>
-              {t('deckcheck.legal')}
-            </>
-          )}
+          {mainDeck.length > 0 &&
+            (deckNotLegal() ? (
+              <>
+                <Icon color="red.500">
+                  <LuBan />
+                </Icon>
+                {t('deckcheck.illegal')}
+              </>
+            ) : (
+              <>
+                <Icon color="green.500">
+                  <LuCircleCheck />
+                </Icon>
+                {t('deckcheck.legal')}
+              </>
+            ))}
         </Box>
       </Field.Root>
       <Field.Root mt="1em">

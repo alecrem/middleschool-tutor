@@ -36,7 +36,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(
     // For offline builds, on the `middleschool-cardlist` repo directory:
     // python3 -m http.server
-    // 'http://127.0.0.1:8000/output/middleschool.json'
+    // 'http://127.0.0.1:8000/static/middleschool.json'
     'https://alecrem-middleschool.hf.space/app/static/middleschool.json'
   )
   const legalCards: LegalCards = await res.json()
