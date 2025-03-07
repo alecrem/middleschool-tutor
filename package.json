@@ -22,7 +22,7 @@
   "devDependencies": {
     "@types/node": "22.13.9",
     "@types/react": "19.0.10",
-    "@types/react-dom": "18.3.1",
+    "@types/react-dom": "19.0.4",
     "eslint": "9.21.0",
     "eslint-config-next": "15.2.1",
     "next-translate-plugin": "^2.6.2",
