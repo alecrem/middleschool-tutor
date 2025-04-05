@@ -20,7 +20,7 @@
     "react-icons": "^5.5.0"
   },
   "devDependencies": {
-    "@types/node": "22.13.17",
+    "@types/node": "22.14.0",
     "@types/react": "19.0.12",
     "@types/react-dom": "19.1.1",
     "eslint": "9.23.0",
