@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import { Icon, Input, List, Link } from '@chakra-ui/react'
 import { LuCircleCheck, LuBan } from 'react-icons/lu'
+import useTranslation from 'next-translate/useTranslation'
 import type { LegalCards } from '@/utils/dataTypes'
 import { useIsLegal } from '@/hooks/useIsLegal'
 import { useSuggestCards } from '@/hooks/useSuggestCards'
@@ -13,9 +14,13 @@ interface Props {
 
 const Search: FC<Props> = (props) => {
   const legalCards = props.legalcards
+  const { t } = useTranslation('common')
   const [exactMatch, setExactMatch] = useState('')
   const [cardIsLegal, setCardIsLegal] = useState(false)
-  const [suggestions, setSuggestions] = useState<string[]>([])
+  const [cardIsBanned, setCardIsBanned] = useState(false)
+  const [suggestions, setSuggestions] = useState<
+    Array<{ name: string; banned: boolean }>
+  >([])
   const { isLegal } = useIsLegal(legalCards)
   const { suggestCards } = useSuggestCards(legalCards)
 
@@ -30,6 +35,7 @@ const Search: FC<Props> = (props) => {
     if (typeof newSearchBox == 'string') {
       const isLegalRet = isLegal(newSearchBox)
       setCardIsLegal(isLegalRet.legal)
+      setCardIsBanned(isLegalRet.banned ?? false)
       setExactMatch(isLegalRet.exactMatch ?? '')
     }
     setSuggestions(suggestCards(newSearchBox))
@@ -60,6 +66,12 @@ const Search: FC<Props> = (props) => {
                   <LuExternalLink />
                 </Icon>
               </Link>
+              {cardIsBanned && (
+                <>
+                  {' 🚫 '}
+                  {t('banned')}
+                </>
+              )}
             </>
           ) : (
             <Icon color="red.500">
@@ -71,19 +83,25 @@ const Search: FC<Props> = (props) => {
         <Input placeholder={placeholder} onChange={handleChange} />
       </InputGroup>
       <List.Root variant="plain" gap={3} mt="1em">
-        {suggestions.map((e) => {
+        {suggestions.map((suggestion) => {
           return (
-            <List.Item key={e}>
+            <List.Item key={suggestion.name}>
               <List.Indicator asChild color="green.500">
                 <LuCircleCheck />
               </List.Indicator>
               <Link
                 href={
                   'https://scryfall.com/search?q=' +
-                  encodeURIComponent('prefer:oldest !"' + e + '"')
+                  encodeURIComponent('prefer:oldest !"' + suggestion.name + '"')
                 }
               >
-                {e}
+                {suggestion.name}
+                {suggestion.banned && (
+                  <>
+                    {' 🚫 '}
+                    {t('banned')}
+                  </>
+                )}
                 <Icon>
                   <LuExternalLink />
                 </Icon>

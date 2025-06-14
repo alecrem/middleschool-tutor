@@ -12,7 +12,7 @@ const useSuggestCards = (legalCards: LegalCards) => {
     hayObject: ListAsProps,
     limit: number = 40
   ) => {
-    let occurrences: string[] = []
+    let occurrences: Array<{name: string, banned: boolean}> = []
     const keys = Object.keys(hayObject)
     for (let i = 0; i < keys.length; i++) {
       const key: string = keys[i]
@@ -21,7 +21,8 @@ const useSuggestCards = (legalCards: LegalCards) => {
         continue
       }
       if (cardWeAreChecking.toLowerCase().indexOf(needleTerm) != -1) {
-        occurrences.push(cardWeAreChecking)
+        const isBanned = legalCards.banned[key] === true
+        occurrences.push({name: cardWeAreChecking, banned: isBanned})
         if (occurrences.length >= limit) break
       }
     }

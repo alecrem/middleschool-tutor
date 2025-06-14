@@ -5,8 +5,12 @@ interface LegalCards {
   oracle_id: ListAsProps
   name: ListAsProps
   name_ja: ListAsProps
+  banned: ListBoolean
 }
 interface ListAsProps {
   [x: string]: string
 }
-export type { CardsProps, LegalCards, ListAsProps }
+interface ListBoolean {
+  [x: string]: boolean
+}
+export type { CardsProps, LegalCards, ListAsProps, ListBoolean }
