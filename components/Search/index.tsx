@@ -1,6 +1,7 @@
 import { FC, useState } from 'react'
 import { Icon, Input, List, Link } from '@chakra-ui/react'
 import { LuCircleCheck, LuBan } from 'react-icons/lu'
+import useTranslation from 'next-translate/useTranslation'
 import type { LegalCards } from '@/utils/dataTypes'
 import { useIsLegal } from '@/hooks/useIsLegal'
 import { useSuggestCards } from '@/hooks/useSuggestCards'
@@ -13,9 +14,13 @@ interface Props {
 
 const Search: FC<Props> = (props) => {
   const legalCards = props.legalcards
+  const { t } = useTranslation('common')
   const [exactMatch, setExactMatch] = useState('')
   const [cardIsLegal, setCardIsLegal] = useState(false)
-  const [suggestions, setSuggestions] = useState<string[]>([])
+  const [cardIsBanned, setCardIsBanned] = useState(false)
+  const [suggestions, setSuggestions] = useState<
+    Array<{ name: string; banned: boolean }>
+  >([])
   const { isLegal } = useIsLegal(legalCards)
   const { suggestCards } = useSuggestCards(legalCards)
 
@@ -30,6 +35,7 @@ const Search: FC<Props> = (props) => {
     if (typeof newSearchBox == 'string') {
       const isLegalRet = isLegal(newSearchBox)
       setCardIsLegal(isLegalRet.legal)
+      setCardIsBanned(isLegalRet.banned ?? false)
       setExactMatch(isLegalRet.exactMatch ?? '')
     }
     setSuggestions(suggestCards(newSearchBox))
@@ -45,49 +51,71 @@ const Search: FC<Props> = (props) => {
       <InputGroup
         mt="2em"
         endElement={
-          cardIsLegal ? (
-            <>
-              <Link
-                href={
-                  'https://scryfall.com/search?q=' +
-                  encodeURIComponent('prefer:oldest !"' + exactMatch + '"')
-                }
-              >
-                <Icon color="green.500">
-                  <LuCircleCheck />
-                </Icon>
-                <Icon>
-                  <LuExternalLink />
-                </Icon>
-              </Link>
-            </>
-          ) : (
-            <Icon color="red.500">
-              <LuBan />
-            </Icon>
-          )
+          <>
+            {cardIsLegal && (
+              <>
+                <Link
+                  href={
+                    'https://scryfall.com/search?q=' +
+                    encodeURIComponent('prefer:oldest !"' + exactMatch + '"')
+                  }
+                >
+                  <Icon color="green.500">
+                    <LuCircleCheck />
+                  </Icon>
+                  <Icon>
+                    <LuExternalLink />
+                  </Icon>
+                </Link>
+              </>
+            )}
+            {cardIsBanned && (
+              <>
+                <Link
+                  href={
+                    'https://scryfall.com/search?q=' +
+                    encodeURIComponent('prefer:oldest !"' + exactMatch + '"')
+                  }
+                >
+                  <Icon color="red.500">
+                    <LuBan />
+                  </Icon>
+                  <Icon>
+                    <LuExternalLink />
+                  </Icon>
+                </Link>
+              </>
+            )}
+          </>
         }
       >
         <Input placeholder={placeholder} onChange={handleChange} />
       </InputGroup>
       <List.Root variant="plain" gap={3} mt="1em">
-        {suggestions.map((e) => {
+        {suggestions.map((suggestion) => {
           return (
-            <List.Item key={e}>
-              <List.Indicator asChild color="green.500">
-                <LuCircleCheck />
-              </List.Indicator>
+            <List.Item key={suggestion.name}>
+              {suggestion.banned ? (
+                <List.Indicator asChild color="red.500">
+                  <LuBan />
+                </List.Indicator>
+              ) : (
+                <List.Indicator asChild color="green.500">
+                  <LuCircleCheck />
+                </List.Indicator>
+              )}
               <Link
                 href={
                   'https://scryfall.com/search?q=' +
-                  encodeURIComponent('prefer:oldest !"' + e + '"')
+                  encodeURIComponent('prefer:oldest !"' + suggestion.name + '"')
                 }
               >
-                {e}
+                {suggestion.name}
                 <Icon>
                   <LuExternalLink />
                 </Icon>
               </Link>
+              {suggestion.banned && <> ({t('bannedCard')})</>}
             </List.Item>
           )
         })}
