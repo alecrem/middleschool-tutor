@@ -51,33 +51,42 @@ const Search: FC<Props> = (props) => {
       <InputGroup
         mt="2em"
         endElement={
-          cardIsLegal ? (
-            <>
-              <Link
-                href={
-                  'https://scryfall.com/search?q=' +
-                  encodeURIComponent('prefer:oldest !"' + exactMatch + '"')
-                }
-              >
-                <Icon color="green.500">
-                  <LuCircleCheck />
-                </Icon>
-                <Icon>
-                  <LuExternalLink />
-                </Icon>
-              </Link>
-              {cardIsBanned && (
-                <>
-                  {' 🚫 '}
-                  {t('banned')}
-                </>
-              )}
-            </>
-          ) : (
-            <Icon color="red.500">
-              <LuBan />
-            </Icon>
-          )
+          <>
+            {cardIsLegal && (
+              <>
+                <Link
+                  href={
+                    'https://scryfall.com/search?q=' +
+                    encodeURIComponent('prefer:oldest !"' + exactMatch + '"')
+                  }
+                >
+                  <Icon color="green.500">
+                    <LuCircleCheck />
+                  </Icon>
+                  <Icon>
+                    <LuExternalLink />
+                  </Icon>
+                </Link>
+              </>
+            )}
+            {cardIsBanned && (
+              <>
+                <Link
+                  href={
+                    'https://scryfall.com/search?q=' +
+                    encodeURIComponent('prefer:oldest !"' + exactMatch + '"')
+                  }
+                >
+                  <Icon color="red.500">
+                    <LuBan />
+                  </Icon>
+                  <Icon>
+                    <LuExternalLink />
+                  </Icon>
+                </Link>
+              </>
+            )}
+          </>
         }
       >
         <Input placeholder={placeholder} onChange={handleChange} />
@@ -86,9 +95,15 @@ const Search: FC<Props> = (props) => {
         {suggestions.map((suggestion) => {
           return (
             <List.Item key={suggestion.name}>
-              <List.Indicator asChild color="green.500">
-                <LuCircleCheck />
-              </List.Indicator>
+              {suggestion.banned ? (
+                <List.Indicator asChild color="red.500">
+                  <LuBan />
+                </List.Indicator>
+              ) : (
+                <List.Indicator asChild color="green.500">
+                  <LuCircleCheck />
+                </List.Indicator>
+              )}
               <Link
                 href={
                   'https://scryfall.com/search?q=' +
@@ -96,16 +111,11 @@ const Search: FC<Props> = (props) => {
                 }
               >
                 {suggestion.name}
-                {suggestion.banned && (
-                  <>
-                    {' 🚫 '}
-                    {t('banned')}
-                  </>
-                )}
                 <Icon>
                   <LuExternalLink />
                 </Icon>
               </Link>
+              {suggestion.banned && <> ({t('bannedCard')})</>}
             </List.Item>
           )
         })}

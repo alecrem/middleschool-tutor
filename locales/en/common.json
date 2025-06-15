@@ -19,5 +19,5 @@
     "illegal": "This list includes one or more cards which are not Middle School-legal",
     "illegal-list": "The following cards are not Middle School legal:"
   },
-  "banned": "(banned)"
+  "bannedCard": "banned"
 }

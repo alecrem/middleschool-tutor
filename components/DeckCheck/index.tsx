@@ -10,6 +10,7 @@ interface Props {
   legalcards: LegalCards
 }
 type CardListItem = {
+  inputText: string
   name: string
   legal: boolean
   banned?: boolean
@@ -23,7 +24,9 @@ const DeckCheck: FC<Props> = (props) => {
   const [mainDeck, setMainDeck] = useState<CardListItem[]>([])
   const [textAreaInput, setTextAreaInput] = useState<string>()
   const { suggestCards } = useSuggestCards(legalCards)
-  const [suggestions, setSuggestions] = useState<Array<{name: string, banned: boolean}>>([])
+  const [suggestions, setSuggestions] = useState<
+    Array<{ name: string; banned: boolean }>
+  >([])
   const textareaRef = useRef<null | HTMLTextAreaElement>(null)
 
   const handleListChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -44,6 +47,7 @@ const DeckCheck: FC<Props> = (props) => {
         const cardName = line.replace(/^[0-9]+ /g, '').trim()
         const isLegalRet = isLegal(cardName.toLowerCase().trim())
         return {
+          inputText: cardName,
           name: isLegalRet.exactMatch ?? cardName,
           legal: isLegalRet.legal,
           banned: isLegalRet.banned ?? false,
@@ -71,7 +75,10 @@ const DeckCheck: FC<Props> = (props) => {
     setSuggestions(suggestCards(newSearchBox))
   }
 
-  const handleSuggestionClick = (suggestion: {name: string, banned: boolean}) => {
+  const handleSuggestionClick = (suggestion: {
+    name: string
+    banned: boolean
+  }) => {
     const originalLines: string[] = textAreaInput?.split('\n') || []
     let allLinesButLast: string[] = originalLines?.slice(0, -1)
     allLinesButLast.push(`1 ${suggestion.name}`)
@@ -99,7 +106,7 @@ const DeckCheck: FC<Props> = (props) => {
               <>
                 <Icon color="red.500">
                   <LuBan />
-                </Icon>
+                </Icon>{' '}
                 {t('deckcheck.illegal')}
               </>
             ) : (
@@ -134,12 +141,7 @@ const DeckCheck: FC<Props> = (props) => {
               onClick={() => handleSuggestionClick(suggestion)}
             >
               {suggestion.name}
-              {suggestion.banned && (
-                <>
-                  {' 🚫 '}
-                  {t('banned')}
-                </>
-              )}
+              {suggestion.banned && <> ({t('bannedCard')})</>}
             </Button>
           )
         })}
@@ -155,13 +157,8 @@ const DeckCheck: FC<Props> = (props) => {
                 <List.Indicator asChild color="red.500">
                   <LuBan />
                 </List.Indicator>{' '}
-                {card.name}
-                {card.banned && (
-                  <>
-                    {' 🚫 '}
-                    {t('banned')}
-                  </>
-                )}
+                {card.name || card.inputText}
+                {card.banned && <> ({t('bannedCard')})</>}
               </List.Item>
             )
           })}
