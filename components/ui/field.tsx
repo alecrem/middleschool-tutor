@@ -26,10 +26,18 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(
         )}
         {children}
         {helperText && (
-          <ChakraField.HelperText>{helperText}</ChakraField.HelperText>
+          <>
+            {/* TODO: Remove @ts-ignore when @chakra-ui/react fixes Field.HelperText children prop types in future version */}
+            {/* @ts-ignore */}
+            <ChakraField.HelperText>{helperText}</ChakraField.HelperText>
+          </>
         )}
         {errorText && (
-          <ChakraField.ErrorText>{errorText}</ChakraField.ErrorText>
+          <>
+            {/* TODO: Remove @ts-ignore when @chakra-ui/react fixes Field.ErrorText children prop types in future version */}
+            {/* @ts-ignore */}
+            <ChakraField.ErrorText>{errorText}</ChakraField.ErrorText>
+          </>
         )}
       </ChakraField.Root>
     )

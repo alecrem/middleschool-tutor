@@ -19,7 +19,11 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           {icon || <ChakraCheckbox.Indicator />}
         </ChakraCheckbox.Control>
         {children != null && (
-          <ChakraCheckbox.Label>{children}</ChakraCheckbox.Label>
+          <>
+            {/* TODO: Remove @ts-ignore when @chakra-ui/react fixes Checkbox.Label children prop types in future version */}
+            {/* @ts-ignore */}
+            <ChakraCheckbox.Label>{children}</ChakraCheckbox.Label>
+          </>
         )}
       </ChakraCheckbox.Root>
     )
