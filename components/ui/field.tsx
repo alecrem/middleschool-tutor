@@ -15,10 +15,14 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(
     return (
       <ChakraField.Root ref={ref} {...rest}>
         {label && (
-          <ChakraField.Label>
-            {label}
-            <ChakraField.RequiredIndicator fallback={optionalText} />
-          </ChakraField.Label>
+          <>
+            {/* TODO: Remove @ts-ignore when @chakra-ui/react fixes Field.Label children prop types in future version */}
+            {/* @ts-ignore */}
+            <ChakraField.Label>
+              {label}
+              <ChakraField.RequiredIndicator fallback={optionalText} />
+            </ChakraField.Label>
+          </>
         )}
         {children}
         {helperText && (
