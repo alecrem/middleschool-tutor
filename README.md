@@ -1,11 +1,11 @@
 # Middle School Tutor
 
-A website to check the legality of Magic cards and deck lists in the Middle School format. 
+A website to check the legality of Magic cards and deck lists in the Middle School format.
 
 - Made using next.js and Chakra UI
 - Using our own [list of cards legal in Middle School](https://github.com/alecrem/middleschool-cardlist)
 
------
+---
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -14,9 +14,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
+pnpm install
+pnpm dev
 ```
 
 ## Learn More
