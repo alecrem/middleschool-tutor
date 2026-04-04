@@ -26,6 +26,6 @@
     "eslint": "9.39.2",
     "eslint-config-next": "16.2.2",
     "next-translate-plugin": "^3.0.0",
-    "typescript": "5.9.3"
+    "typescript": "6.0.2"
   }
 }
