@@ -1,0 +1,8 @@
+# Dependency install scripts are blocked by default (pnpm >= 10).
+# None of these need to run: sharp and unrs-resolver ship prebuilt
+# platform binaries as optional dependencies, and next-translate-plugin
+# only prints an informational message.
+allowBuilds:
+  next-translate-plugin: false
+  sharp: false
+  unrs-resolver: false
