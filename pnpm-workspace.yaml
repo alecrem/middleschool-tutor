@@ -1,3 +1,7 @@
+# Requires pnpm 10+. CI must run with corepack enabled so it honours the
+# packageManager field in package.json; older pnpm rejects this file for
+# having no packages field.
+#
 # Dependency install scripts are blocked by default (pnpm >= 10).
 # None of these need to run: sharp and unrs-resolver ship prebuilt
 # platform binaries as optional dependencies, and next-translate-plugin
