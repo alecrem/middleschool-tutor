@@ -41,10 +41,12 @@ const Search: FC<Props> = (props) => {
     setSuggestions(suggestCards(newSearchBox))
   }
 
-  const placeholderIndex = ~~(
-    Math.random() * Object.keys(legalCards.name).length
-  )
-  const placeholder = legalCards.name[placeholderIndex]
+  const [placeholder] = useState(() => {
+    const placeholderIndex = ~~(
+      Math.random() * Object.keys(legalCards.name).length
+    )
+    return legalCards.name[placeholderIndex]
+  })
 
   return (
     <>

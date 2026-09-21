@@ -92,10 +92,12 @@ const DeckCheck: FC<Props> = (props) => {
     current.focus()
   }
 
-  const placeholderIndex = ~~(
-    Math.random() * Object.keys(legalCards.name).length
-  )
-  const placeholder = '4 ' + legalCards.name[placeholderIndex]
+  const [placeholder] = useState(() => {
+    const placeholderIndex = ~~(
+      Math.random() * Object.keys(legalCards.name).length
+    )
+    return '4 ' + legalCards.name[placeholderIndex]
+  })
 
   return (
     <Box mt="1em">
