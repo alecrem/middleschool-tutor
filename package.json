@@ -24,7 +24,7 @@
   "devDependencies": {
     "@types/node": "26.6.1",
     "@types/react": "19.3.0",
-    "@types/react-dom": "19.2.7",
+    "@types/react-dom": "19.3.0",
     "eslint": "9.39.2",
     "eslint-config-next": "16.3.5",
     "next-translate-plugin": "^3.2.0",
